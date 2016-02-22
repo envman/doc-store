@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/envman/node-api/issues"
   },
-  "homepage": "https://github.com/envman/node-api#readme"
+  "homepage": "https://github.com/envman/node-api#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  }
 }
