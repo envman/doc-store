@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    title sites
+    link(href="/css/bootstrap.min.css" rel="stylesheet" type="text/css")
+    link(href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css")
+    link(href="/css/sidebar.css" rel="stylesheet" type="text/css")
+    block styles
+    
+  body
+    #wrapper
+      #sidebar-wrapper
+        ul.sidebar-nav
+          li.sidebar-brand
+            a(href="/demo") Document Store
+          li
+            a(href="/demo/new") New Document
+          li
+            a(href="#") Document List
+          li
+            a(href="#") Something
+        
+      .content
+        block content
+        
+          
+    script(src="/scripts/jquery-1.12.0.min.js")
+    script(src="/scripts/bootstrap.min.js")
+    block scripts

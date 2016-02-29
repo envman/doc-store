@@ -1,0 +1,20 @@
+extends ./base.jade
+
+block styles
+  link(href="/css/new.css" rel="stylesheet" type="text/css")
+
+block content
+  h1 New Document
+  
+  .form-group
+    label(for="title") Title
+    input(type="text")#title.form-control
+    
+  .form-group
+    label(for="document") Document
+    textarea#document.form-control
+
+  a.btn.btn-primary.btn-add Add
+
+block scripts
+  script(src="/scripts/new.js")

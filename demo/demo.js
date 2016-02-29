@@ -5,4 +5,8 @@ router.get('/', function(request, response) {
   response.render('demo')
 })
 
+router.get('/new', function(request, response) {
+  response.render('new')
+})
+
 module.exports = router;
