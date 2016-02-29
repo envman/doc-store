@@ -1,0 +1,16 @@
+extends ./base.jade
+
+block content
+  h1= title
+  
+  input(type="hidden" value= _id)
+  
+  .form-group
+    label(for="document")
+    textarea#document= document
+  a.btn.btn-primary Update
+  
+  .output
+  
+  block scripts
+    script(src="/scripts/document.js")

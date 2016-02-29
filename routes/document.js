@@ -28,7 +28,7 @@ router.get('/list', function(request, response) {
     var repo = new repoFactory(path)
 
     repo.init(function() {
-      fs.writeFile(path + '/document.json', document, function(err) {
+      fs.writeFile(path + '\\document.json', document, function(err) {
         repo.addAll(function() {
           repo.commit('Initial Commit', function() {
 
@@ -38,6 +38,29 @@ router.get('/list', function(request, response) {
       });
     })
   })
+})
+
+.get('/:id', function(request, response) {
+
+  var path = 'c:\\doc-store\\' + request.params.id
+
+  db.findOne({_id: request.params.id}, function(error, result) {
+
+    fs.readFile(path + '\\document.json', function(err, data) {
+
+      var stuff = data;
+
+      console.log(err)
+      console.log(stuff)
+
+      result.document = stuff
+      response.render('document', result)
+    })
+  })
+})
+
+.post('/update', function(request, response) {
+  
 })
 
 module.exports = router;
