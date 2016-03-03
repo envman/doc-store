@@ -45,3 +45,17 @@ module.exports = function(path) {
     })
   }
 }
+
+module.exportsa = function(path) {
+  var path = path
+
+  var gitExecute = function(command, callback) {
+
+  }
+
+  return {
+    commit: function(message, callback) {
+      gitExecute('commit -m "' + message + '"', callback)
+    }
+  }
+}

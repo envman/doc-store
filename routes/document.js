@@ -54,13 +54,13 @@ router.get('/list', function(request, response) {
       console.log(stuff)
 
       result.document = stuff
-      response.render('document', result)
+      response.json(result)
     })
   })
 })
 
 .post('/update', function(request, response) {
-  
+
 })
 
-module.exports = router;
+module.exports = router
