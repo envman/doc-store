@@ -1,14 +1,17 @@
 extends ./base.jade
 
+block styles
+  link(href="/css/new.css" rel="stylesheet" type="text/css")
+
 block content
-  h1= title
+  h1= document.title
   
-  input(type="hidden" value= _id)
+  input(type="hidden" value= document._id)#document-id
   
   .form-group
     label(for="document")
-    textarea#document= document
-  a.btn.btn-primary Update
+    textarea#document.form-control= document.document
+  a.btn.btn-primary#update-button Update
   
   .output
   

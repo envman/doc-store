@@ -46,21 +46,39 @@ router.get('/list', function(request, response) {
 
   db.findOne({_id: request.params.id}, function(error, result) {
 
-    fs.readFile(path + '\\document.json', function(err, data) {
+    fs.readFile(path + '\\document.json', 'utf-8', function(err, data) {
+      if (err) {
+        console.log(err)
+        response.end()
+        return;
+      }
 
-      var stuff = data;
-
-      console.log(err)
-      console.log(stuff)
-
-      result.document = stuff
+      result.document = data
       response.json(result)
     })
   })
 })
 
 .post('/update', function(request, response) {
+  var path = 'c:\\doc-store\\' + request.body._id
 
+  console.log(path + '\\document.json')
+  console.log(request.body.document)
+
+  fs.writeFile(path + '\\document.json', request.body.document, function(error) {
+    if (error) {
+      console.log(error)
+      return;
+    }
+
+    var repo = new repoFactory(path)
+    repo.addAll(function() {
+      repo.commit('Updated', function() {
+
+        response.json(request.body)
+      })
+    })
+  })
 })
 
 module.exports = router

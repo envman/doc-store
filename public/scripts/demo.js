@@ -4,7 +4,7 @@ $(function() {
     type: "GET",
     success: function(result) {
       for (var i in result) {
-        $('.document-list').append('<li><a href="http://localhost:8080/document/' + result[i]._id + '"">' + result[i].title + ' - ' + result[i]._id + '</a><li>')
+        $('.document-list').append('<li><a href="http://localhost:8080/demo/edit/' + result[i]._id + '"">' + result[i].title + ' - ' + result[i]._id + '</a></li>')
       }
     }
   })

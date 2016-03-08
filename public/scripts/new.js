@@ -1,7 +1,7 @@
 $(function() {
   $('.btn-add').click(function() {
     var request = {
-      title: $('#title').val(),\
+      title: $('#title').val(),
       document: $('#document').val(),
     }
 
@@ -10,7 +10,8 @@ $(function() {
       type: "POST",
       data: request,
       success: function(result) {
-
+        $('#title').val('')
+        $('#document').val('')
       }
     })
   })
