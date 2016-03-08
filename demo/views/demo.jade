@@ -1,10 +1,13 @@
 extends ./base.jade
 
+block styles
+  link(href="/css/demo.css" rel="stylesheet" type="text/css")
+
 block content
-  h1 Documents
+  h1.title Documents
 
   .document-container
-    ul.document-list
+    ul.document-list.list-group
     
   block scripts
     script(src="/scripts/demo.js")

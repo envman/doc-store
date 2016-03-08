@@ -1,0 +1,19 @@
+extends ./base.jade
+
+block styles
+  //- link(href="/css/new.css" rel="stylesheet" type="text/css")
+
+block content
+  h1= History
+
+  ul.list-group
+
+    each val in history
+      li.list-group-item.test
+        .message= val.message
+        .commit= val.commit
+        .author= val.author
+        .date= val.date
+  
+  block scripts
+    //- script(src="/scripts/document.js")

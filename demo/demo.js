@@ -16,14 +16,29 @@ router.get('/edit/:id', function(request, response) {
     if (!error && httpResponse.statusCode == 200) {
 
       var document = {document: JSON.parse(body)}
-      
+
       response.render('document', document)
 
     } else {
       console.log(error)
 
       response.end();
-      return;
+    }
+  })
+})
+
+router.get('/history/:id', function(request, response) {
+
+  httpRequest('http://localhost:8080/document/history/' + request.params.id, function (error, httpResponse, body) {
+    if (!error && httpResponse.statusCode == 200) {
+
+      var history = { history: JSON.parse(body) }
+
+      response.render('history', history)
+    } else {
+      console.log(error)
+
+      response.end();
     }
   })
 })

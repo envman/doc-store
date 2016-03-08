@@ -78,7 +78,7 @@ router.get('/list', function(request, response) {
   })
 })
 
-.get('/log/:id', function(request, response) {
+.get('/history/:id', function(request, response) {
   var path = 'c:\\doc-store\\' + request.params.id
   var repo = new repoFactory(path)
 
