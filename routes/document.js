@@ -50,7 +50,7 @@ router.get('/list', function(request, response) {
       if (err) {
         console.log(err)
         response.end()
-        return;
+        return
       }
 
       result.document = data
@@ -62,9 +62,6 @@ router.get('/list', function(request, response) {
 .post('/update', function(request, response) {
   var path = 'c:\\doc-store\\' + request.body._id
 
-  console.log(path + '\\document.json')
-  console.log(request.body.document)
-
   fs.writeFile(path + '\\document.json', request.body.document, function(error) {
     if (error) {
       console.log(error)
@@ -73,11 +70,20 @@ router.get('/list', function(request, response) {
 
     var repo = new repoFactory(path)
     repo.addAll(function() {
-      repo.commit('Updated', function() {
+      repo.commit('Updated', function(commitResult) {
 
-        response.json(request.body)
+        response.json(commitResult)
       })
     })
+  })
+})
+
+.get('/log/:id', function(request, response) {
+  var path = 'c:\\doc-store\\' + request.params.id
+  var repo = new repoFactory(path)
+
+  repo.jsonLog(function(json) {
+    response.json(json)
   })
 })
 

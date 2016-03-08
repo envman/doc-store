@@ -3,7 +3,6 @@ var mkdirp = require('mkdirp');
 
 module.exports = function(path) {
   var path = path
-  console.log('repo at: ' + path)
 
   this.init = function(callback) {
     mkdirp(path, function(err) {
@@ -21,6 +20,23 @@ module.exports = function(path) {
 
   this.addAll = function(callback) {
     gitExecute('add -A', callback)
+  }
+
+  this.jsonLog = function(callback) {
+
+    gitExecute('log --pretty=format:"{ *commit*: *%H*, *author*: *%an <%ae>*, *date*: *%ad*, *message*: *%f*},"', function(data) {
+
+      // replace *'s with "'s
+      var quoted = data.split('*').join('"')
+
+      // remove trailing ,
+      var commaRemoved = quoted.slice(0, -1)
+
+      // add array [ & ]
+      var jsonString = '[' + commaRemoved + ']'
+
+      callback(JSON.parse(jsonString))
+    })
   }
 
   this.commit = function(message, callback) {
@@ -41,7 +57,7 @@ module.exports = function(path) {
         console.log(result)
       }
 
-      callback()
+      callback(result)
     })
   }
 }
