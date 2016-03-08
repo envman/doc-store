@@ -2,12 +2,6 @@
 
 A git based document store written in node!
 
-## things used
-- node.js
-- express
-- nedb
-- git
-
 ## Planned Features
 - Configurable Repository Locations
 - Better Error Handling
@@ -16,3 +10,11 @@ A git based document store written in node!
 - Branching of documents
 - Json Document Diff
 - Json Object History
+
+## things used
+- node.js
+- express
+- nedb
+- git
+- request
+- mkdirp
