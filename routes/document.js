@@ -70,7 +70,12 @@ router.get('/list', function(request, response) {
 
     var repo = new repoFactory(path)
     repo.addAll(function() {
-      repo.commit('Updated', function(commitResult) {
+      var message = 'Updated'
+      if (request.body.message) {
+        message = request.body.message
+      }
+
+      repo.commit(message, function(commitResult) {
 
         response.json(commitResult)
       })

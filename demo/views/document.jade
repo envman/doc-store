@@ -9,8 +9,13 @@ block content
   input(type="hidden" value= document._id)#document-id
   
   .form-group
-    label(for="document")
+    label(for="document") Document
     textarea#document.form-control= document.document
+    
+  .form-group
+    label(for="message") Message
+    textarea#message.form-control
+    
   a.btn.btn-primary#update-button Update
   
   .output

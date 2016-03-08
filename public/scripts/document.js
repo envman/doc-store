@@ -6,10 +6,12 @@ $(function() {
       type: "POST",
       data: {
         _id: $('#document-id').val(),
-        document: $('#document').val()
+        document: $('#document').val(),
+        message: $('#message').val()
       },
       success: function(result) {
         $('.output').text(result)
+        $('#message').val('')
       }
     })
   })
