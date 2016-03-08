@@ -1,26 +1,26 @@
 {
-  "name": "node-api",
+  "name": "doc-store",
   "version": "0.1.0",
-  "description": "node api template",
+  "description": "A git based document store",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/envman/node-api.git"
+    "url": "git+https://github.com/envman/doc-store.git"
   },
   "keywords": [
-    "node",
-    "api",
-    "template"
+    "document",
+    "store",
+    "git"
   ],
   "author": "Robert Gill <envman@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/envman/node-api/issues"
+    "url": "https://github.com/envman/doc-store/issues"
   },
-  "homepage": "https://github.com/envman/node-api#readme",
+  "homepage": "https://github.com/envman/doc-store#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
