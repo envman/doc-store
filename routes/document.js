@@ -39,7 +39,7 @@ router.get('/list', function(request, response) {
             response.end()
           })
         })
-      });
+      })
     })
   })
 })
