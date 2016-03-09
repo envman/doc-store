@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Datastore = require('nedb');
 var fs = require('fs');
+var diff = require('deep-diff').diff;
 
 var repoFactory = require('./../src/repository.js');
 
@@ -92,6 +93,29 @@ router.get('/list', function(request, response) {
 
   repo.jsonLog(function(json) {
     response.json(json)
+  })
+})
+
+.get('/diff/:id/:commit', function(request, response) {
+  var path = settings.directory + request.params.id
+  var repo = new repoFactory(path)
+
+  var currentFile = settings.directory + 'current.json'
+  var oldFile = settings.directory + 'old.json'
+
+  repo.show(request.params.commit, currentFile, function() {
+    repo.show(request.params.commit + '~1', oldFile, function() {
+      fs.readFile(currentFile, 'utf-8', function(currentError, currentData) {
+        fs.readFile(oldFile, 'utf-8', function(oldError, oldData) {
+          var current = JSON.parse(currentData)
+          var old = JSON.parse(oldData)
+
+          var differences = diff(old, current)
+
+          response.json(differences)
+        })
+      })
+    })
   })
 })
 

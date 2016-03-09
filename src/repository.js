@@ -22,6 +22,10 @@ module.exports = function(path) {
     gitExecute('add -A', callback)
   }
 
+  this.show = function(commit, destination, callback) {
+    gitExecute('show ' + commit + ':document.json > ' + destination, callback)
+  }
+
   this.jsonLog = function(callback) {
 
     gitExecute('log --pretty=format:"{ *commit*: *%H*, *author*: *%an <%ae>*, *date*: *%ad*, *message*: *%f*},"', function(data) {

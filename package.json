@@ -23,6 +23,7 @@
   "homepage": "https://github.com/envman/doc-store#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "deep-diff": "^0.3.3",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "mkdirp": "^0.5.1",

@@ -32,9 +32,28 @@ router.get('/history/:id', function(request, response) {
   httpRequest('http://localhost:8080/document/history/' + request.params.id, function (error, httpResponse, body) {
     if (!error && httpResponse.statusCode == 200) {
 
-      var history = { history: JSON.parse(body) }
+      var history = {
+        id: request.params.id,
+        history: JSON.parse(body)
+      }
 
       response.render('history', history)
+    } else {
+      console.log(error)
+
+      response.end();
+    }
+  })
+})
+
+router.get('/diff/:id', function(request, response) {
+
+  httpRequest('http://localhost:8080/document/diff' + request.params.id, function(error, httpResponse, body) {
+    if (!error && httpResponse.statusCode == 200) {
+
+      var diff = { diff: JSON.parse(body) }
+
+      response.render('diff', diff)
     } else {
       console.log(error)
 
