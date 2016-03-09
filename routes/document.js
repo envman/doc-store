@@ -1,14 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var Datastore = require('nedb');
-var fs = require('fs');
+var express = require('express')
+var router = express.Router()
+var Datastore = require('nedb')
+var fs = require('fs')
 
-var repoFactory = require('./../src/repository.js');
+var repoFactory = require('./../src/repository.js')
+var settings = require('./../src/settings.js')
 
-var db = new Datastore({ filename: __dirname + './../repos/meta.db', autoload: true });
-
-var settingsData = fs.readFileSync('./settings.json', 'utf-8')
-var settings = JSON.parse(settingsData)
+var db = new Datastore({ filename: __dirname + './../repos/meta.db', autoload: true })
 
 router.get('/list', function(request, response) {
 
