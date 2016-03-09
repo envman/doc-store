@@ -4,25 +4,26 @@ var mkdirp = require('mkdirp');
 module.exports = function(path) {
   var path = path
 
-  this.init = function(callback) {
-    mkdirp(path, function(err) {
-      gitExecute('init', callback)
-    });
+  var gitExecute = function(command, callback) {
+    var command = 'git ' + command
+
+    exec(command, {cwd: path}, function(error, result) {
+      console.log(command)
+
+      if (error != null) {
+        console.log(error)
+        return;
+      }
+
+      callback(result)
+    })
   }
 
-  this.pull = function(callback) {
-    gitExecute('pull', callback)
+  var commit = function(message, callback) {
+    gitExecute('commit -m "' + message + '"', callback)
   }
 
-  this.push = function(callback) {
-    gitExecute('push', callback)
-  }
-
-  this.addAll = function(callback) {
-    gitExecute('add -A', callback)
-  }
-
-  this.jsonLog = function(callback) {
+  var jsonLog = function(callback) {
 
     gitExecute('log --pretty=format:"{ *commit*: *%H*, *author*: *%an <%ae>*, *date*: *%ad*, *message*: *%f*},"', function(data) {
 
@@ -39,39 +40,30 @@ module.exports = function(path) {
     })
   }
 
-  this.commit = function(message, callback) {
-    gitExecute('commit -m "' + message + '"', callback)
-  }
-
-  var gitExecute = function(command, callback) {
-    var command = 'git ' + command;
-
-    exec(command, {cwd: path}, function(error, result) {
-      console.log(command)
-
-      if (error != null) {
-        console.log(error)
-      }
-
-      if (result != null) {
-        console.log(result)
-      }
-
-      callback(result)
+  var init = function(callback) {
+    mkdirp(path, function(err) {
+      gitExecute('init', callback)
     })
   }
-}
 
-module.exportsa = function(path) {
-  var path = path
+  var pull = function(callback) {
+    gitExecute('pull', callback)
+  }
 
-  var gitExecute = function(command, callback) {
+  var push = function(callback) {
+    gitExecute('push', callback)
+  }
 
+  var addAll = function(callback) {
+    gitExecute('add -A', callback)
   }
 
   return {
-    commit: function(message, callback) {
-      gitExecute('commit -m "' + message + '"', callback)
+      commit: commit,
+      jsonLog: jsonLog,
+      init:init,
+      pull: pull,
+      push: push,
+      addAll: addAll
     }
   }
-}
