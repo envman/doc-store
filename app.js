@@ -10,4 +10,4 @@ app.use(bodyParser.json());
 
 app.use('/document', require('./routes/document.js'))
 
-app.listen(8080); // TODO: set port
+app.listen(8080);

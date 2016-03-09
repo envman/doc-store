@@ -7,6 +7,9 @@ var repoFactory = require('./../src/repository.js');
 
 var db = new Datastore({ filename: __dirname + './../repos/meta.db', autoload: true });
 
+var settingsData = fs.readFileSync('./settings.json', 'utf-8')
+var settings = JSON.parse(settingsData)
+
 router.get('/list', function(request, response) {
 
   db.find({}, function(error, docs) {
@@ -24,7 +27,7 @@ router.get('/list', function(request, response) {
   db.insert(meta, function(error, result) {
     var id = result._id;
 
-    var path = 'c:\\doc-store\\' + id
+    var path = settings.directory + id
     var repo = new repoFactory(path)
 
     repo.init(function() {
@@ -42,7 +45,7 @@ router.get('/list', function(request, response) {
 
 .get('/:id', function(request, response) {
 
-  var path = 'c:\\doc-store\\' + request.params.id
+  var path = settings.directory + request.params.id
 
   db.findOne({_id: request.params.id}, function(error, result) {
 
@@ -60,7 +63,7 @@ router.get('/list', function(request, response) {
 })
 
 .post('/update', function(request, response) {
-  var path = 'c:\\doc-store\\' + request.body._id
+  var path = settings.directory + request.body._id
 
   fs.writeFile(path + '\\document.json', request.body.document, function(error) {
     if (error) {
@@ -84,7 +87,7 @@ router.get('/list', function(request, response) {
 })
 
 .get('/history/:id', function(request, response) {
-  var path = 'c:\\doc-store\\' + request.params.id
+  var path = settings.directory + request.params.id
   var repo = new repoFactory(path)
 
   repo.jsonLog(function(json) {
