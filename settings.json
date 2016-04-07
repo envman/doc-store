@@ -1,4 +1,5 @@
 {
   "port": "8080",
-  "directory": "c:\\doc-store\\"
+  "directory": "c:\\doc-store\\",
+  "requireUsers": "true"
 }

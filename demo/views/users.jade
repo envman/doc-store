@@ -1,0 +1,23 @@
+extends ./base.jade
+
+block styles
+  link(href="/css/demo.css" rel="stylesheet" type="text/css")
+
+block content
+  h1.title Documents
+
+  .document-container
+    ul.document-list.list-group
+      if users
+        each user in users
+          a#select-user
+            li.list-group-item
+              .user-id= user._id
+              .user-name= user.name
+          
+  .user-create
+    input(type="text")#user-name
+    a.btn.btn-primary#btn-create Create
+    
+  block scripts
+    script(src="/scripts/users.js")

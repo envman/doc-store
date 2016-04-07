@@ -3,12 +3,14 @@ var router = express.Router()
 var Datastore = require('nedb')
 
 var documentFactory = require('./../src/document.js')
+var db = require('./../src/db.js')
+var userCheck = require('./../src/userCheck.js')
 
-var db = new Datastore({ filename: __dirname + './../repos/meta.db', autoload: true })
+router.use(userCheck)
 
 router.get('/list', function(request, response) {
 
-  db.find({}, function(error, docs) {
+  db.meta.find({}, function(error, docs) {
     response.json(docs)
   })
 })
@@ -18,7 +20,7 @@ router.get('/list', function(request, response) {
     title: request.body.title
   }
 
-  db.insert(meta, function(error, result) {
+  db.meta.insert(meta, function(error, result) {
     var gdocument = new documentFactory(result._id)
 
     gdocument.create(request.body.document, function() {
@@ -29,7 +31,7 @@ router.get('/list', function(request, response) {
 
 .get('/:id', function(request, response) {
 
-  db.findOne({_id: request.params.id}, function(error, result) {
+  db.meta.findOne({_id: request.params.id}, function(error, result) {
 
     var gdocument = new documentFactory(result._id)
 
