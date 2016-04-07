@@ -5,7 +5,7 @@ var settings = require('./settings.js')
 module.exports = function(id) {
   var id = id
   var path = settings.directory + id
-  var documentPath = path + '\\document.json'
+  var documentPath = path + '/document.json'
 
   var repository = new repoFactory(path)
 

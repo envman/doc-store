@@ -1,10 +1,11 @@
 var express = require('express')
 var router = express.Router()
 var Datastore = require('nedb')
+var settings = require('./../settings')
 
 var documentFactory = require('./../src/document.js')
 
-var db = new Datastore({ filename: __dirname + './../repos/meta.db', autoload: true })
+var db = new Datastore({ filename: settings.directory + 'meta.db', autoload: true })
 
 router.get('/list', function(request, response) {
 
