@@ -1,5 +1,5 @@
 var exec = require('child_process').exec
-var mkdirp = require('mkdirp');
+var mkdirp = require('mkdirp')
 
 module.exports = function(path) {
   var path = path
@@ -8,15 +8,19 @@ module.exports = function(path) {
     var command = 'git ' + command
 
     exec(command, {cwd: path}, function(error, result) {
-      console.log(command)
+      console.log(command + ' : ' + path)
 
       if (error != null) {
         console.log(error)
-        return;
+        return
       }
 
       callback(result)
     })
+  }
+
+  var config = function(data, callback) {
+    gitExecute('config ' + data, callback)
   }
 
   var commit = function(message, callback) {
@@ -40,6 +44,12 @@ module.exports = function(path) {
     })
   }
 
+  var initBare = function(callback) {
+    mkdirp(path, function(err) {
+      gitExecute('init --bare', callback)
+    })
+  }
+
   var init = function(callback) {
     mkdirp(path, function(err) {
       gitExecute('init', callback)
@@ -58,12 +68,21 @@ module.exports = function(path) {
     gitExecute('add -A', callback)
   }
 
+  var clone = function(location, callback) {
+    mkdirp(path, function(err) {
+      gitExecute('clone ' + location + ' .', callback)
+    })
+  }
+
   return {
       commit: commit,
       jsonLog: jsonLog,
       init:init,
       pull: pull,
       push: push,
-      addAll: addAll
+      addAll: addAll,
+      clone: clone,
+      initBare: initBare,
+      config: config
     }
   }

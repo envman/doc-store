@@ -7,6 +7,7 @@ block content
   h1= document.title
   
   input(type="hidden" value= document._id)#document-id
+  input(type="hidden" value= user)#user-id
   
   .form-group
     label(for="document") Document
@@ -18,9 +19,15 @@ block content
     
   a.btn.btn-primary#update-button Update
   
+  .form-group
+    label User
+    input(type="text")#add-user-id
+    
+  a.btn.btn-secondary#add-user-button Add User
+  
   .output
   
-  a(href="/demo/history/" + document._id).btn.btn-secondary#log-button View History
+  a(href="/demo/history/" + document._id + "/" + user).btn.btn-secondary#log-button View History
   
   block scripts
     script(src="/scripts/document.js")

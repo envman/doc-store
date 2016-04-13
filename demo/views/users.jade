@@ -10,14 +10,22 @@ block content
     ul.document-list.list-group
       if users
         each user in users
-          a#select-user
+          a(href="/demo/userdocuments/" + user._id)#select-user
             li.list-group-item
               .user-id= user._id
               .user-name= user.name
-          
+              .user-email= user.email
+
   .user-create
-    input(type="text")#user-name
+    .form-group
+      label User Name
+      input(type="text").form-control#user-name
+
+    .form-group
+      label Email
+      input(type="text").form-control#user-email
+
     a.btn.btn-primary#btn-create Create
-    
+
   block scripts
     script(src="/scripts/users.js")

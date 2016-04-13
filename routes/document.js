@@ -16,24 +16,43 @@ router.get('/list', function(request, response) {
 })
 
 .post('/add', function(request, response) {
+
   var meta = {
     title: request.body.title
   }
 
   db.meta.insert(meta, function(error, result) {
-    var gdocument = new documentFactory(result._id)
+    var options = {
+      id: result._id
+    }
 
-    gdocument.create(request.body.document, function() {
-      response.end()
+    var rootDocument = new documentFactory({id: result._id, user: 'central', email: 'central@' + result._id})
+    rootDocument.createRoot(function() {
+
+      var gdocument = new documentFactory({id: result._id})
+      gdocument.clone(rootDocument.path, function() {
+
+        gdocument.update(request.body.document, 'Initial Commit', function() {
+          response.end()
+        })
+      })
     })
   })
 })
 
-.get('/:id', function(request, response) {
+.get('/:id/:user?', function(request, response) {
 
   db.meta.findOne({_id: request.params.id}, function(error, result) {
 
-    var gdocument = new documentFactory(result._id)
+    var options = {
+      id: result._id
+    }
+
+    if (request.params.user) {
+      options.user = request.params.user
+    }
+
+    var gdocument = new documentFactory(options)
 
     gdocument.read(function(data) {
       result.document = data
@@ -42,17 +61,18 @@ router.get('/list', function(request, response) {
   })
 })
 
-.post('/update', function(request, response) {
-  var gdocument = new documentFactory(request.body._id)
+.post('/update/:user?', function(request, response) {
+  var options = {
+    id: request.body._id
+  }
+
+  if (request.params.user) {
+    options.user = request.params.user
+  }
+
+  var gdocument = new documentFactory(options)
   gdocument.update(request.body.document, request.body.message, function() {
     response.end('OK')
-  })
-})
-
-.get('/history/:id', function(request, response) {
-  var gdocument = new documentFactory(request.params.id)
-  gdocument.history(function(history) {
-    response.json(history)
   })
 })
 

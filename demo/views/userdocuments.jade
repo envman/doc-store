@@ -1,0 +1,14 @@
+extends ./base.jade
+
+block styles
+  link(href="/css/demo.css" rel="stylesheet" type="text/css")
+
+block content
+  h1.title Documents
+
+  .document-container
+    ul.document-list.list-group
+      if user.documents
+        each document in user.documents
+          li.list-group-item
+            .document-id= document

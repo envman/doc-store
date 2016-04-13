@@ -10,26 +10,33 @@ router.get('/', function(request, response) {
   response.render('new')
 })
 
-.get('/edit/:id', function(request, response) {
+.get('/edit/:id/:user?', function(request, response) {
 
-  httpRequest('http://localhost:8080/document/' + request.params.id, function (error, httpResponse, body) {
+  var user = request.params.user || ''
+
+  var url = 'http://localhost:8080/document/' + request.params.id + '/' + user
+
+  httpRequest(url ,function (error, httpResponse, body) {
     if (!error && httpResponse.statusCode == 200) {
 
-      var document = {document: JSON.parse(body)}
+      var document = {document: JSON.parse(body), user: user}
 
       response.render('document', document)
 
     } else {
       console.log(error)
 
-      response.end();
+      response.end()
     }
   })
 })
 
-.get('/history/:id', function(request, response) {
+.get('/history/:id/:user?', function(request, response) {
 
-  httpRequest('http://localhost:8080/document/history/' + request.params.id, function (error, httpResponse, body) {
+  var user = request.params.user || ''
+  var url = 'http://localhost:8080/history/' + request.params.id + '/' + user
+
+  httpRequest(url, function (error, httpResponse, body) {
     if (!error && httpResponse.statusCode == 200) {
 
       var history = { history: JSON.parse(body) }
@@ -38,7 +45,7 @@ router.get('/', function(request, response) {
     } else {
       console.log(error)
 
-      response.end();
+      response.end()
     }
   })
 })
@@ -49,4 +56,11 @@ router.get('/', function(request, response) {
   })
 })
 
-module.exports = router;
+.get('/userdocuments/:user', function(request, response) {
+  httpRequest('http://localhost:8080/user/' + request.params.user, function(error, httpResponse, body) {
+
+    response.render('userdocuments', {user: JSON.parse(body)})
+  })
+})
+
+module.exports = router

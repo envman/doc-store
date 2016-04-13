@@ -1,7 +1,8 @@
 $(function() {
   $('#btn-create').click(function() {
     var user = {
-      name: $('#user-name').val()
+      name: $('#user-name').val(),
+      email: $('#user-email').val()
     }
 
     $.ajax({
@@ -10,15 +11,6 @@ $(function() {
       data: user,
       success: function(response) {
         location.reload(true)
-      }
-    })
-  })
-
-  $('#select-user').each(function() {
-    $(this).click(function() {
-      selectedUser = {
-        _id: $('#user-id').text(),
-        name: $('#user-name').text()
       }
     })
   })

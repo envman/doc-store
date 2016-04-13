@@ -2,7 +2,7 @@ $(function() {
   $('.btn-add').click(function() {
     var request = {
       title: $('#title').val(),
-      document: $('#document').val(),
+      document: $('#document').val()
     }
 
     $.ajax({
